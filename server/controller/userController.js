@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 // user Registration
 export const register = async (req, res) => {
   try {
-    // Destructure photo from req.body in case it is sent as a string
     const {
       firstName,
       lastName,
@@ -16,7 +15,7 @@ export const register = async (req, res) => {
       photo: photoFromBody,
     } = req.body;
 
-    // Use req.file if available (for file uploads) or use photo from req.body
+    
     const photo = req.file ? req.file.path : photoFromBody || null;
 
     if (
@@ -42,7 +41,7 @@ export const register = async (req, res) => {
         .json({ message: "Email or Phone number already exists" });
     }
 
-    // Hash the password
+    // Password Hashing
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
@@ -118,11 +117,10 @@ export const getUserById = async (req, res) => {
 // Update user
 export const updateUser = async (req, res) => {
   try {
-    // Destructure additional fields (email and phone) from req.body.
+  
     const { firstName, lastName, dob, address, email, phone } = req.body;
     const photo = req.file ? req.file.path : null;
 
-    // Create an update object including email and phone.
     const updateData = {
       firstName,
       lastName,
@@ -130,7 +128,7 @@ export const updateUser = async (req, res) => {
       address,
       email,
       phone,
-      ...(photo && { photo }), // Only add photo if it exists
+      ...(photo && { photo }), 
     };
 
     const updatedUser = await User.findByIdAndUpdate(
