@@ -9,7 +9,6 @@ function UserEdit() {
   const [formData, setFormData] = useState(null);
   const [error, setError] = useState(null);
 
-  // Fetch user details and initialize formData for editing
   useEffect(() => {
     axios
       .get(`http://localhost:4000/api/h2/user/getuser/${id}`)
@@ -26,7 +25,7 @@ function UserEdit() {
             email: fetchedUser.email,
             phone: fetchedUser.phone,
             photo: fetchedUser.photo || "",
-            createdAt: fetchedUser.createdAt, // Added createdAt property
+            createdAt: fetchedUser.createdAt, 
           });
         }
       })
